@@ -1,7 +1,7 @@
 {
   "name": "circles",
-  "main": "circles.min.js",
-  "version": "0.0.6",
+  "main": "circles.js",
+  "version": "0.0.7",
   "homepage": "https://github.com/lugolabs/circles",
   "authors": [
     "lugolabs"

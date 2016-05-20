@@ -7,12 +7,12 @@
 
   Call Circles.create(options) with the following options:
 
-    id         - the DOM element that will hold the graph
-    radius     - the radius of the circles
-    width      - the width of the ring (optional, has value 10, if not specified)
-    value      - init value of the circle (optional, defaults to 0)
-    maxValue   - maximum value of the circle (optional, defaults to 100)
-    text       - the text to display at the centre of the graph (optional, the current "htmlified" value will be shown if not specified)
+    id | element - the DOM element that will hold the graph
+    radius       - the radius of the circles
+    width        - the width of the ring (optional, has value 10, if not specified)
+    value        - init value of the circle (optional, defaults to 0)
+    maxValue     - maximum value of the circle (optional, defaults to 100)
+    text         - the text to display at the centre of the graph (optional, the current "htmlified" value will be shown if not specified)
                  if `null` or an empty string, no text will be displayed
                  can also be a function: the returned value will be the displayed text
                      ex1. function(currentValue) {
@@ -21,9 +21,9 @@
                      ex2.  function() {
                                return this.getPercent() + '%';
                            }
-    colors     - an array of colors, with the first item coloring the full circle
+    colors       - an array of colors, with the first item coloring the full circle
                  (optional, it will be `['#EEE', '#F00']` if not specified)
-    duration   - value in ms of animation duration; (optional, defaults to 500);
+    duration     - value in ms of animation duration; (optional, defaults to 500);
                  if 0 or `null` is passed, the animation will not run
     wrpClass     - class name to apply on the generated element wrapping the whole circle.
     textClass:   - class name to apply on the generated element wrapping the text content.
@@ -68,7 +68,11 @@
 
   Circles = function(options) {
     var elId = options.id;
-    this._el = document.getElementById(elId);
+    if (elId){
+      this._el = document.getElementById(elId);
+    } else {
+      this._el = options.element;
+    }
 
     if (this._el === null) return;
 

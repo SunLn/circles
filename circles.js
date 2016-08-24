@@ -200,7 +200,8 @@
       path.setAttribute('stroke-width', this._strokeWidth);
       path.setAttribute('d',  this._calculatePath(percentage, open));
       path.setAttribute('class', pathClass);
-
+      path.setAttribute("stroke-linecap", "round");
+      
       this._svg.appendChild(path);
 
       return this;

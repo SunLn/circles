@@ -98,6 +98,8 @@
 
     this._styleWrapper   = options.styleWrapper === false ? false : true;
     this._styleText      = options.styleText === false ? false : true;
+    this._gradient       = options.gradient || null;
+    this._gradient_id    = options.gradient_id || null;
 
     var endAngleRad      = Math.PI / 180 * 270;
     this._start          = -Math.PI / 180 * 90;
@@ -186,9 +188,29 @@
       this._svg.setAttribute('width', this._svgSize);
       this._svg.setAttribute('height', this._svgSize);
 
-      this._generatePath(100, false, this._colors[0], this._maxValClass)._generatePath(1, true, this._colors[1], this._valClass);
+      this._gradient ? (this._generateDefs(this._gradient[0], this._gradient[1]), this._generatePath(100, false, this._colors[0], this._maxValClass)._generatePath(1, true, "url(#" + this._gradient_id + ")", this._valClass)) : this._generatePath(100, false, this._colors[0], this._maxValClass)._generatePath(1, true, this._colors[1], this._valClass);
 
       this._movingPath = this._svg.getElementsByTagName('path')[1];
+
+      return this;
+    },
+
+    _generateDefs: function(t,e) {
+      var i = document.createElementNS("http://www.w3.org/2000/svg", "defs"),
+          s = document.createElementNS("http://www.w3.org/2000/svg", "linearGradient");
+      var r = document.createElementNS("http://www.w3.org/2000/svg", "stop");
+      s.setAttribute("id", this._gradient_id);
+      r.setAttribute("offset", "0%");
+      r.setAttribute("stop-color", e);
+      r.setAttribute("stop-opacity", "1");
+      s.appendChild(r);
+      var a = document.createElementNS("http://www.w3.org/2000/svg", "stop");
+      a.setAttribute("offset", "100%");
+      a.setAttribute("stop-color", t);
+      a.setAttribute("stop-opacity", "1");
+      s.appendChild(a);
+      i.appendChild(s);
+      this._svg.appendChild(i)
 
       return this;
     },
